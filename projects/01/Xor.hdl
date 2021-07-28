@@ -14,8 +14,8 @@ CHIP Xor {
 
     PARTS:
     Not (in=a, out=notA);
-    And (a=notA, b=b, out=BAndNotA);
+    And (a=notA, b=b, out=bAndNotA);
     Not (in=b, out=notB);
-    And (a=a, b=notB, out=AAndNotB);
-    Or (a=BAndNotA, b=AAndNotB, out=out);
+    And (a=a, b=notB, out=aAndNotB);
+    Or (a=bAndNotA, b=aAndNotB, out=out);
 }
