@@ -16,12 +16,7 @@ CHIP Mux4Way16 {
     OUT out[16];
 
     PARTS:
-    Not (in=sel[0], out=notSel0);
-    Not (in=sel[1], out=notSel1);
-    And (a=notSel0, b=notSel1, out=aSelected);
-    And (a=notSel0, b=sel[1], out=bSelected);
-    And (a=sel[0], b=notSel1, out=cSelected);
-    And (a=sel[0], b=sel[1], out=dSelected);
-
-    And (a=a, b=aSelected, out=aSelectedAndA)
+    Mux16 (a=a, b=b, sel=sel[0], out=aOrB);
+    Mux16 (a=c, b=d, sel=sel[0], out=cOrD);
+    Mux16 (a=aOrB, b=cOrD, sel=sel[1], out=out);
 }
