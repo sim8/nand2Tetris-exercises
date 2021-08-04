@@ -64,5 +64,11 @@ CHIP ALU {
 
     // no
     Not16(in=fOut, out=notResult);
-    Mux16(a=fOut, b=notResult, sel=no, out=out);
+    // 1st bit of output indicates pos/neg so use directly for ng
+    Mux16(a=fOut, b=notResult, sel=no, out=out, out[15]=ng, out[0..7]=wow, out[8..15]=pow);
+
+    Or8Way(in=wow, out=or0To7);
+    Or8Way(in=pow, out=or8To15);
+    Or(a=or0To7, b=or8To15, out=notZr);
+    Not(in=notZr, out=zr);
 }
