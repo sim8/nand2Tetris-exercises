@@ -16,5 +16,9 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    Inc16 (in=prev, out=current);
+    Mux16 (a=current, b=in, sel=load, out=currentOrLoad);
+    Mux16 (a=currentOrLoad, b[0..15]=false, sel=reset, out=valueOrZeroedValue);
+    Register (in=valueOrZeroedValue, load=inc, out=out, out=prev);
+    // TODO - what about increment has never been true? Or16?
 }
