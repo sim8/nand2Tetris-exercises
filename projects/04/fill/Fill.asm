@@ -16,9 +16,6 @@
 // unconditional loop
 // if keyboard pressed - blacken screen
 
-
-@color
-
 (LOOP)
   @KBD
   D=M
@@ -41,16 +38,39 @@
   @PAINT
   0;JMP
 
-
 (PAINT)
-  @color
+  // last word index
+  @8191
+  D=A
+  @screenWordIndex
+  M=D
+  @PAINT_WORDS
+  0;JMP
+
+(PAINT_WORDS)
+  @screenWordIndex
   D=M
   @SCREEN
+  D=D+A
+  @indexToPaint
   M=D
 
-  // reset loop
+  @color
+  D=M
+  @indexToPaint
+  A=M
+  M=D
+
+  @screenWordIndex
+  D=M-1
+  M=D
+  @PAINT_WORDS
+  D;JGE
+  // else, reset loop
   @LOOP
   0;JMP
+
+
 
 // Don't think this is needed?
 (END)
